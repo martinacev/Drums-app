@@ -90,78 +90,107 @@ const Modal = ({ index, onClose, onAssign }: ModalProps) => {
 
   return (
     <div
+  style={{
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 999,
+  }}
+  onClick={onClose} 
+>
+  <div
+    style={{
+      backgroundColor: "black",
+      padding: "2em",
+      borderRadius: "1em",
+      display: "flex",
+      flexDirection: "column",
+      gap: "1em",
+      maxWidth: "400px",
+      width: "100%",
+      boxSizing: "border-box",
+      position: "relative",
+    }}
+    onClick={(e) => e.stopPropagation()} 
+  >
+    <button
+      onClick={onClose}
       style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        backgroundColor: "rgba(0, 0, 0, 0.5)", // overlay background
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        zIndex: 999, // ensure modal is on top
+        position: "absolute",
+        top: "0.5em",
+        right: "0.5em",
+        background: "none",
+        border: "none",
+        color: "white",
+        fontSize: "1.5em",
+        cursor: "pointer",
       }}
     >
-      <div
+      ✖
+    </button>
+    
+    <button onClick={onClose} style={{ alignSelf: "flex-end" }}>
+      <Image src={closeIcon} alt="Close icon" />
+    </button>
+    <div>
+      <p>Drum Sample</p>
+      <select
+        value={sound}
+        onChange={(e) => setSound(e.target.value)}
         style={{
-          backgroundColor: "black",
-          padding: "2em",
-          borderRadius: "1em",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1em",
-          maxWidth: "400px",
+          backgroundColor: "gray",
+          color: "white",
           width: "100%",
-          boxSizing: "border-box",
+          padding: "0.5em",
+          borderRadius: "0.5em",
         }}
       >
-        <button onClick={onClose} style={{ alignSelf: "flex-end" }}>
-          <Image src={closeIcon} alt="Close icon" />
-        </button>
-        <div>
-          <p>Drum Sample</p>
-          <select
-            value={sound}
-            onChange={(e) => setSound(e.target.value)}
-            style={{
-              backgroundColor: "gray",
-              color: "white",
-              width: "100%",
-              padding: "0.5em",
-              borderRadius: "0.5em",
-            }}
-          >
-            <option value="">Select Sound</option>
-            {Object.keys(sounds).map((soundName) => (
-              <option key={soundName} value={soundName}>
-                {soundName}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <p>Keyboard Shortcut</p>
-          <input
-            style={{
-              backgroundColor: "black",
-              color: "white",
-              width: "100%",
-              padding: "0.5em",
-              borderRadius: "0.5em",
-            }}
-            type="text"
-            placeholder="Press a key"
-            value={key}
-            onChange={(e) => setKey(e.target.value)}
-            maxLength={1}
-          />
-        </div>
-        <button onClick={handleSubmit} style={{ padding: "0.5em", backgroundColor: "#1C1C1C", color: "white", borderRadius: "0.5em", cursor: "pointer" }}>
-          Save
-        </button>
-      </div>
+        <option value="">Select Sound</option>
+        {Object.keys(sounds).map((soundName) => (
+          <option key={soundName} value={soundName}>
+            {soundName}
+          </option>
+        ))}
+      </select>
     </div>
+    <div>
+      <p>Keyboard Shortcut</p>
+      <input
+        style={{
+          backgroundColor: "black",
+          color: "white",
+          width: "100%",
+          padding: "0.5em",
+          borderRadius: "0.5em",
+        }}
+        type="text"
+        placeholder="Press a key"
+        value={key}
+        onChange={(e) => setKey(e.target.value)}
+        maxLength={1}
+      />
+    </div>
+    <button
+      onClick={handleSubmit}
+      style={{
+        padding: "0.5em",
+        backgroundColor: "#1C1C1C",
+        color: "white",
+        borderRadius: "0.5em",
+        cursor: "pointer",
+      }}
+    >
+      Save
+    </button>
+  </div>
+</div>
+
   );
 };
 
